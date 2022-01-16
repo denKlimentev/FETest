@@ -12,7 +12,7 @@ describe('Automate the purchase flow ', () => {
     before('Precondition : login and get random product', () => {
         User.login(testAccts.standardUser, testAccts.password)
         productName = User.getRandomProductName();
-        console.log('Product name : '+productName);
+        console.log('Product name : ' + productName);
     });
 
     it('Add Product in cart', () => {
