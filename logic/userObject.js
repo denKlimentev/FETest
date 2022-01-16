@@ -6,17 +6,39 @@ const pages = require('../testData/pages/PageFactory');
 
 class userObject {
     login = (login, password) => {
+        if (password === undefined || login === undefined) {
+            throw new TypeError('login and password is not provide');
+        }
         pages.LoginPage.open('/')
         h.setValue(pages.LoginPage.userName_input, login)
         h.setValue(pages.LoginPage.password_input, password)
         h.click(pages.LoginPage.submitBtn)
     };
 
+    getRandomProductName = () => {
+        const productList = pages.ProductListPage.item_names;
+        return productList[Math.floor(Math.random() * productList.length)].getText();
+    }
+
     addProductToCart = (productName) => {
+        if (productName === undefined || productName === "") {
+            throw new TypeError('product name is not provide');
+        }
         const element = pages.ProductListPage.getProductDescriptionInTheList(productName);
-        element.waitForDisplayed();
-        element.$(pages.ProductListPage.addToCart_button).click()
-        pages.ProductListPage.shopping_cart_link.$(pages.ProductListPage.span).waitForDisplayed()
+        element.scrollIntoView()
+        element.waitForClickable()
+        h.findElementInParent(element, pages.ProductListPage.addToCart_button).click();
+        h.findElementInParent(pages.ProductListPage.shopping_cart_link, pages.ProductListPage.span).waitForDisplayed();
+    }
+
+    getPrise = (productName) => {
+        if (productName === undefined || productName === "") {
+            throw new TypeError('product name is not provide');
+        }
+        const itemPrice = h.findElementInParent(
+            pages.ProductListPage.getProductDescriptionInTheList(productName)
+            , pages.ProductListPage.itemPrice_div).getText();
+        return +itemPrice.toString().replace('$', '')
     }
 
     goToCartPage = () => {
