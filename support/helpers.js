@@ -18,7 +18,7 @@ exports.getProductDescriptionInTheList = (productName) => {
 };
 
 exports.calculation = (numberOne, numberTwo) => {
-    const one = parseFloat(numberOne.toString().replace('$', ''));
-    const two = parseFloat(numberTwo.toString().replace('$', ''));
+    const one = +numberOne.toString().replace('$', '');
+    const two = +numberTwo.toString().replace('$', '');
     return `$${one + two}`
 };
