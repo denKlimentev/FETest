@@ -1,8 +1,0 @@
-{
-  "overview_tittle": "//span[text() = 'Checkout: Overview']",
-  "finish_button": "[data-test=finish]",
-  "summaryInfo_box": "div[class='summary_info']",
-  "subtotal_label": ".//div[@class = 'summary_subtotal_label']",
-  "tax_label": ".//div[@class = 'summary_tax_label']",
-  "total_label": ".//div[@class = 'summary_total_label']"
-}
