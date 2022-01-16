@@ -2,49 +2,45 @@
 
 const h = require("../support/helpers");
 const user = require("../testData/userData.js");
-const CartPage = require("../testData/pages/saucedemoPortal/cartPage.js");
-const ProductListPage = require("../testData/pages/saucedemoPortal/productListPage.js");
-const LoginPage = require('../testData/pages/saucedemoPortal/loginPage');
-const StepOnePage = require("../testData/pages/saucedemoPortal/stepOnePage.js");
-const StepTwoPage = require("../testData/pages/saucedemoPortal/stepTwoPage.js");
+const pages = require('../testData/pages/PageFactory');
 
 class userObject {
-  login = (login, password) => {
-    LoginPage.open('/')
-    h.setValue(LoginPage.userName_input,login)
-    h.setValue(LoginPage.password_input,password)
-    h.click(LoginPage.submitBtn)
-  };
+    login = (login, password) => {
+        pages.LoginPage.open('/')
+        h.setValue(pages.LoginPage.userName_input, login)
+        h.setValue(pages.LoginPage.password_input, password)
+        h.click(pages.LoginPage.submitBtn)
+    };
 
-  addProductToCart = (productName) => {
-    const element = ProductListPage.getProductDescriptionInTheList(productName);
-    element.waitForDisplayed();
-    element.$(ProductListPage.addToCart_button).click()
-    ProductListPage.shopping_cart_link.$(ProductListPage.span).waitForDisplayed()
-  }
+    addProductToCart = (productName) => {
+        const element = pages.ProductListPage.getProductDescriptionInTheList(productName);
+        element.waitForDisplayed();
+        element.$(pages.ProductListPage.addToCart_button).click()
+        pages.ProductListPage.shopping_cart_link.$(pages.ProductListPage.span).waitForDisplayed()
+    }
 
-  goToCartPage = () => {
-    CartPage.open('/cart.html');
-    CartPage.cart_tittle.waitForDisplayed();
-  }
+    goToCartPage = () => {
+        pages.CartPage.open('/cart.html');
+        pages.CartPage.cart_tittle.waitForDisplayed();
+    }
 
-  clickCheckoutGotoStepOne = () => {
-    h.click(CartPage.checkout_button)
-  }
+    clickCheckoutGotoStepOne = () => {
+        h.click(pages.CartPage.checkout_button);
+    }
 
-  putRandomDataAndCompleteStepOne = () => {
-    const userBody = user.getBody();
-    h.setValue(StepOnePage.firstName_input,userBody.firstName);
-    h.setValue(StepOnePage.lastName_input,userBody.lastName);
-    h.setValue(StepOnePage.postalCode_input, userBody.zipCode);
-    h.click(StepOnePage.continue_button);
-    StepTwoPage.overview_tittle.waitForDisplayed();
-    return userBody;
-  }
+    putRandomDataAndCompleteStepOne = () => {
+        const userBody = user.getBody();
+        h.setValue(pages.StepOnePage.firstName_input, userBody.firstName);
+        h.setValue(pages.StepOnePage.lastName_input, userBody.lastName);
+        h.setValue(pages.StepOnePage.postalCode_input, userBody.zipCode);
+        h.click(pages.StepOnePage.continue_button);
+        pages.StepTwoPage.overview_tittle.waitForDisplayed();
+        return userBody;
+    }
 
-  finishBuy = () => {
-    h.click(StepTwoPage.finish_button)
-  }
+    finishBuy = () => {
+        h.click(pages.StepTwoPage.finish_button);
+    }
 }
 
-module.exports = new userObject();
+module.exports = userObject;
