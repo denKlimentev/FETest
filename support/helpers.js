@@ -4,7 +4,7 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 exports.click = (element) => {
-    if (element === undefined) {
+    if (!element) {
         throw new TypeError('element is not provide');
     }
     element.waitForClickable();
@@ -12,7 +12,7 @@ exports.click = (element) => {
 };
 
 exports.setValue = (element, value) => {
-    if (element === undefined || value === undefined) {
+    if (!element || !value) {
         throw new TypeError('element and value is not provide');
     }
     element.waitForClickable();
@@ -20,7 +20,7 @@ exports.setValue = (element, value) => {
 };
 
 exports.findElementInParent = (parent, element) => {
-    if (parent === undefined || element === undefined) {
+    if (!parent || !element) {
         throw new TypeError('parent and element is not provide');
     }
     return parent.$(element.selector)

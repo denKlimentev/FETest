@@ -1,18 +1,24 @@
- class Page {
+class Page {
     constructor() {
-        this.title = 'My Page'
+        this.title = 'My Page';
     }
 
-     open (path) {
-        browser.url(path)
+    open(path) {
+        browser.url(path);
     }
 
-     get span () { return $(".//span") }
+    get span() {
+        return $(".//span");
+    }
 
-     get itemName_div () { return $(".//div[contains(@class, 'item_name')]") }
+    get itemNameDiv() {
+        return $(".//div[contains(@class, 'item_name')]");
+    }
 
-     get itemPrice_div () { return $(".//div[contains(@class, 'item_price')]") }
+    get itemPriceDiv() {
+        return $(".//div[contains(@class, 'item_price')]");
+    }
 
 }
 
- module.exports =  Page
+module.exports = Page;
