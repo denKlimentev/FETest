@@ -1,64 +1,88 @@
 'use strict';
 const h = require('../../support/helpers');
 const assert = require('soft-assert');
-const userObject = require('../../logic/userObject.js');
+const User = require('../../logic/UserObject.js');
 const testAccts = require('../../testData/testAccounts.json');
-const pages = require('../../testData/pages/PageFactory.js');
+const pages = require('../../testData/pages/pageFactory.js');
 
 const tax = 0.08;
 describe('Automate the purchase flow ', () => {
-    let user, productName ;
+    let productName, itemPrice, itemTax;
 
-    beforeEach('Precondition : login', () => {
-        user = new userObject();
-        user.login(testAccts.standardUser, testAccts.password)
-        productName = user.getRandomProductName();
-        console.log(productName);
+    before('Precondition : login and get random product', () => {
+        User.login(testAccts.standardUser, testAccts.password)
+        productName = User.getRandomProductName();
+        console.log('Product name : '+productName);
     });
 
-    it('Purchase flow', () => {
-        user.addProductToCart(productName);
-        const itemPrice = user.getPrise(productName)
-        const itemTax = parseFloat(itemPrice * tax).toFixed(2);
+    it('Add Product in cart', () => {
+        User.addProductToCart(productName);
+
+        itemPrice = User.getPrise(productName)
+        itemTax = parseFloat(itemPrice * tax).toFixed(2);
 
         assert.softAssert(
-            h.findElementInParent(pages.ProductListPage.shopping_cart_link, pages.ProductListPage.span).getText()
+            h.findElementInParent(pages.productListPage.shoppingCartLink, pages.productListPage.span).getText()
             , '1'
             , 'Number of purchases must be one'
         );
         assert.softTrue(
-            h.findElementInParent(pages.ProductListPage.getProductDescriptionInTheList(productName),pages.ProductListPage.remove_button).isDisplayed()
-            , 'Button removed in added product must be visible'
-        );
+            h.findElementInParent(pages.productListPage.getProductDescriptionInTheList(productName), pages.productListPage.removeButton).isDisplayed()
+            , 'Button removed in added product must be visible');
+        assert.softAssertAll();
+    });
 
-        user.goToCartPage();
-        assert.softAssert(pages.CartPage.itemName_div.getText(), productName);
-        assert.softContains(pages.CartPage.itemPrice_div.getText(), `$${itemPrice}`);
+    it('Check product in cart', () => {
+        User.goToCartPage();
 
-        user.clickCheckoutGotoStepOne();
-        user.putRandomDataAndCompleteStepOne();
+        assert.softAssert(pages.cartPage.itemNameDiv.getText(), productName);
+        assert.softContains(pages.cartPage.itemPriceDiv.getText(), `$${itemPrice}`);
+        assert.softAssertAll();
+    });
 
-        assert.softAssert(pages.StepTwoPage.itemName_div.getText(), productName);
-        assert.softAssert(pages.StepTwoPage.itemPrice_div.getText(), `$${itemPrice}`);
+    it('Processing Step 1', () => {
+        User.clickCheckoutGotoStepOne();
+
+        const userBody = User.putRandomData();
+
+        assert.softAssert(pages.stepOnePage.firstNameInput.getValue(), userBody.firstName);
+        assert.softAssert(pages.stepOnePage.lastNameInput.getValue(), userBody.lastName);
+        assert.softAssert(pages.stepOnePage.postalCodeInput.getValue(), userBody.zipCode);
+
+        User.clickCheckoutGotoStepTwo();
+
+        assert.softAssertAll();
+
+    });
+
+    it('Processing Step 2', () => {
+        assert.softAssert(pages.stepTwoPage.itemNameDiv.getText(), productName);
+        assert.softAssert(pages.stepTwoPage.itemPriceDiv.getText(), `$${itemPrice}`);
         assert.softContains(
-            h.findElementInParent(pages.StepTwoPage.summaryInfo_box, pages.StepTwoPage.subtotal_label).getText()
+            h.findElementInParent(pages.stepTwoPage.summaryInfoBox, pages.stepTwoPage.subtotalLabel).getText()
             , `$${itemPrice}`
             , 'Subtotal must be equel item price'
         );
         assert.softContains(
-            h.findElementInParent(pages.StepTwoPage.summaryInfo_box, pages.StepTwoPage.tax_label).getText()
+            h.findElementInParent(pages.stepTwoPage.summaryInfoBox, pages.stepTwoPage.taxLabel).getText()
             , `$${itemTax}`
             , 'Tax must be equel defalte tax'
         );
         assert.softContains(
-            h.findElementInParent(pages.StepTwoPage.summaryInfo_box, pages.StepTwoPage.total_label).getText()
+            h.findElementInParent(pages.stepTwoPage.summaryInfoBox, pages.stepTwoPage.totalLabel).getText()
             , `$${parseFloat(+itemPrice + +itemTax).toFixed(2)}`
             , 'total must be equel defalte tax + item price'
         );
 
-        user.finishBuy()
-        pages.CompletePage.complete_message.waitForDisplayed()
-        assert.softAssert(pages.CompletePage.complete_message.getText(), 'THANK YOU FOR YOUR ORDER')
+        User.finishStepTwo()
+
         assert.softAssertAll();
     });
+
+    it('Finish Buy Page', () => {
+        pages.completePage.completeMessage.waitForDisplayed();
+        assert.softAssert(pages.completePage.completeMessage.getText(), 'THANK YOU FOR YOUR ORDER');
+        assert.softAssertAll();
+    });
+
 });
