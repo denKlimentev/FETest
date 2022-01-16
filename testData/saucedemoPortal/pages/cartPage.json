@@ -1,0 +1,4 @@
+{
+  "cart_tittle": "//span[text() = 'Your Cart']",
+  "checkout_button": "[data-test=checkout]"
+}

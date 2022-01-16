@@ -1,0 +1,6 @@
+{
+  "firstName_input": "[data-test=firstName]",
+  "lastName_input": "[data-test=lastName]",
+  "postalCode_input": "[data-test=postalCode]",
+  "continue_button": "[data-test=continue]"
+}
