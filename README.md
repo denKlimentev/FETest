@@ -1,5 +1,5 @@
 # FETest
-1. Clone the repo - https://github.com/DenisKlimentev/FETest.git
+1. Clone the repo - https://github.com/denKlimentev/FETest.git
 2. cd into FETest
 3. npm install
 
