@@ -1,5 +1,0 @@
-{
-  "shopping_cart_link": "[class=shopping_cart_link]",
-  "addToCart_button": ".//button[text()= 'Add to cart']",
-  "remove_button": ".//button[text()= 'Remove']"
-}

@@ -13,9 +13,6 @@ exports.setValue = (element, value) => {
     element.setValue(value);
 };
 
-exports.getProductDescriptionInTheList = (productName) => {
-  return $(`//*[contains(text(), '${productName}')]//ancestor::div[contains(@class, 'item_description')]`);
-};
 
 exports.calculation = (numberOne, numberTwo) => {
     const one = +numberOne.toString().replace('$', '');

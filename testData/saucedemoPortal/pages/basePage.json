@@ -1,5 +1,0 @@
-{
-  "span": ".//span",
-  "itemName_div": ".//div[contains(@class, 'item_name')]",
-  "itemPrice_div": ".//div[contains(@class, 'item_price')]"
-}
