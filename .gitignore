@@ -12,3 +12,7 @@ local.log
 
 # temp files
 package-lock.json
+
+#allure temp files
+allure-results
+allure-report

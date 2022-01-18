@@ -2,7 +2,7 @@
 
 const h = require("../support/helpers");
 const user = require("../testData/userData.js");
-const pages = require('../testData/pages/pageFactory');
+const pages = require('../pages/pageFactory');
 
 class UserObject {
     login(login, password) {
@@ -43,7 +43,7 @@ class UserObject {
 
     goToCartPage() {
         pages.cartPage.open('/cart.html');
-        pages.cartPage.cartTittle.waitForDisplayed();
+        pages.cartPage.checkoutButton.waitForDisplayed();
     }
 
     clickCheckoutGotoStepOne() {
@@ -53,7 +53,7 @@ class UserObject {
 
     clickCheckoutGotoStepTwo() {
         h.click(pages.stepOnePage.continueButton);
-        pages.stepTwoPage.overviewTittle.waitForDisplayed();
+        pages.stepTwoPage.finishButton.waitForDisplayed();
     }
 
     putRandomData() {

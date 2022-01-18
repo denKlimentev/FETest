@@ -8,15 +8,15 @@ class Page {
     }
 
     get span() {
-        return $(".//span");
+        return $("span");
     }
 
     get itemNameDiv() {
-        return $(".//div[contains(@class, 'item_name')]");
+        return $(".inventory_item_name");
     }
 
     get itemPriceDiv() {
-        return $(".//div[contains(@class, 'item_price')]");
+        return $(".inventory_item_price");
     }
 
 }

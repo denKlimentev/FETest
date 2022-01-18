@@ -1,21 +1,23 @@
 const Page = require('../Page')
 
+//TODO https://webdriver.io/docs/pageobjects/  official documentation PO can return selector or WebElement so
+//TODO getProductDescriptionInTheList return WebElement so construction non-inclusive SOLID
 class ProductListPage extends Page {
 
     get shoppingCartLink() {
-        return $("[class=shopping_cart_link]");
+        return $(".shopping_cart_link");
     }
 
     get addToCartButton() {
-        return $(".//button[text()= 'Add to cart']");
+        return $("[data-test^=add-to-cart-]");
     }
 
     get removeButton() {
-        return $(".//button[text()= 'Remove']");
+        return $("[data-test^=remove-]");
     }
 
     get itemNames() {
-        return $$("[class='inventory_item_name']");
+        return $$(".inventory_item_name");
     }
 
     getProductDescriptionInTheList = (productName) => {

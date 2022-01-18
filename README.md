@@ -1,23 +1,21 @@
-# FETest
-1. Clone the repo - https://github.com/denKlimentev/FETest.git
-2. cd into FETest
-3. npm install
+# Test Automation Framework FETest
 
-Running Tests Locally
-Run individual file: 'npm run testSaucedemoPortal -- --spec=./test/saucedemoPortal/purchaseFlowTest.js'
+## Based on
+* [Node.js](https://nodejs.org/en/) as a JavaScript runtime
+* [Yarn](https://yarnpkg.com/) as a Node.js package manager
+* [Playwright](https://playwright.dev) as a main UI automation tool
+* [mocha-framework](https://jasmine.github.io) as a test framework
+* AURA as a test reporting tool
 
-RESULT : 
+## Getting started
+1. Install:
+    * [Node.js](https://nodejs.org/en/) (requires 14.17.5)
+    * [Git](https://github.com/denKlimentev/FETest.git) 
+2. Clone this repository to any folder
+3. Open repository folder
+4. Install Yarn globally
+ 
+5. npm install 
 
-[0-0] RUNNING in chrome - C:\Users\d.klimentev\Desktop\QF\New folder\FETest\test\saucedemoPortal\purchaseFlowTest.js
-[0-0] Product name : Sauce Labs Backpack
-[0-0]   √ Add Product in cart - pass
-[0-0]   √ Check product in cart - pass
-[0-0]   √ Processing Step 1 - pass
-[0-0]   √ Processing Step 2 - pass
-[0-0]   √ Finish Buy Page - pass
-[0-0] PASSED in chrome - C:\Users\d.klimentev\Desktop\QF\New folder\FETest\test\saucedemoPortal\purchaseFlowTest.js
-
-Spec Files:      1 passed, 1 total (100% completed) in 00:00:19
-
-
-
+## Run test
+1. npm run testSaucedemoPortal -- --spec=./test/saucedemoPortal/purchaseFlowTest.js
